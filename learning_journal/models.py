@@ -25,3 +25,19 @@ class MyModel(Base):
     value = Column(Integer)
 
 Index('my_index', MyModel.name, unique=True, mysql_length=255)
+
+
+class Entry(Base):
+    __tablename__ = 'entries'
+    id = Column(Integer, primary_key=True)
+    title = Column(Text(255),primary_key=True)
+    body = Column(Text)
+    created = Column(Integer)
+    edited = Column(Integer)
+
+
+    def all(self):
+        pass
+
+    def by_id(self):
+        pass
