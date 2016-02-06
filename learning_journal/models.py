@@ -5,6 +5,8 @@ from sqlalchemy import (
     Text,
     DateTime,
     func,
+    String,
+    Unicode
     )
 
 from sqlalchemy.ext.declarative import declarative_base
@@ -12,6 +14,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import (
     scoped_session,
     sessionmaker,
+    validates
     )
 
 from zope.sqlalchemy import ZopeTransactionExtension
@@ -34,15 +37,22 @@ Index('my_index', MyModel.name, unique=True, mysql_length=255)
 class Entry(Base):
     __tablename__ = 'entries'
     id = Column(Integer, primary_key=True)
-    title = Column(Text, mysql_length=255, unique=True) # need to figure out how to limit length properly
+    title = Column(Text, unique=True) # need to figure out how to limit length properly
     body = Column(Text)
     created = Column(DateTime(timezone=True), default=func.now())
     edited = Column(DateTime(timezone=True), default=func.now(), onupdate=func.now())
 
-Index('Entry_Index', Entry.title, unique=True, mysql_length=255)
+    @validates('title')
+    def validate_title(self, key, title):
+        assert len(title) <= 255
+        return title
 
-    # def all(self):
-    #     pass
-    #
-    # def by_id(self):
-    #     pass
+    @classmethod
+    def all(cls):
+        pass
+
+    @classmethod
+    def by_id(cls):
+        pass
+
+Index('Entry_Index', Entry.title, unique=True, mysql_length=255)
