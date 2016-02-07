@@ -8,8 +8,7 @@ from sqlalchemy import (
     )
 
 from datetime import datetime
-#now = datetime.now()
-from pytz import timezone
+
 
 from sqlalchemy.dialects.sqlite import (
     CHAR,
@@ -52,7 +51,6 @@ class Entry(Base):
     body = Column(Text)
     created = Column(DATETIME(timezone=True), default=func.now())
     edited = Column(DATETIME(timezone=True),default=func.now(), onupdate=func.now())
-    print(datetime.now(),'*'* 8)
 
 
     # def __init__(self, id, title, body, created, edited):
