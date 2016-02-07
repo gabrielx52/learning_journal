@@ -3,7 +3,6 @@ from sqlalchemy import (
     Index,
     Integer,
     Text,
-    DateTime,
     func,
 
     )
@@ -51,10 +50,10 @@ class Entry(Base):
     id = Column(Integer, primary_key=True)
     title = Column(CHAR(255), unique=True) # unicode supports char length
     body = Column(Text)
-    # created = Column(Text, default=(time_str(datetime.now)))
-    # edited = Column(Text,default=time_str(datetime.now), onupdate=time_str(datetime.now))
-    created = Column(DATETIME, default=func.now())
-    edited = Column(DATETIME(timezone=True), onupdate=datetime.now())
+    created = Column(DATETIME(timezone=True), default=func.now())
+    edited = Column(DATETIME(timezone=True),default=func.now(), onupdate=func.now())
+    print(datetime.now(),'*'* 8)
+
 
     # def __init__(self, id, title, body, created, edited):
     #     self.id = id
@@ -62,10 +61,6 @@ class Entry(Base):
     #     self.body = body
     #     self.created = 'nuts'
     #     self.edited = timezone('US/Pacific').localize(edited)
-
-    # @validates('created')
-    # def validate_created(self, key, created):
-    #     assert
 
 
     # @validates('title')
