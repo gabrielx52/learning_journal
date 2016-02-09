@@ -5,6 +5,7 @@ from sqlalchemy import (
     Text,
     func,
     MetaData,
+    desc,
     )
 
 
@@ -32,13 +33,8 @@ from zope.sqlalchemy import ZopeTransactionExtension
 DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
 
 
-meta = MetaData()
+Base = declarative_base()
 
-
-Base = declarative_base(metadata=meta)
-
-
-sess = Session()
 
 class MyModel(Base):
     __tablename__ = 'models'
@@ -59,12 +55,19 @@ class Entry(Base):
 
     @classmethod
     def by_id(cls, DB, id):
-        return DB.query(cls).get(id)
-
+        try:
+            id_query = (DB.query(cls).get(id))
+            return[id_query.id, id_query.title, id_query.body, id_query.created, id_query.edited]
+        except TypeError:
+            return 'Requires two positional arguments: database and id number'
 
     @classmethod
-    def all(cls):
-        pass
+    def all(cls, DB):
+        try:
+            db_query = DB.query(cls).order_by(desc(cls.created))
+            return [(column.id, column.title, column.body, column.created, column.edited) for column in db_query]
+        except TypeError:
+            return 'Requires one positional argument for database'
 
 
 '''
