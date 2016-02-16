@@ -10,8 +10,10 @@
     {% endfor %}
     </ul>
   {% endif %}
-    <p>{{ field.label }}: {{ field }}</p>
 {% endfor %}
+  <p>{{ form.title.label }}:  {{  form.title }} </p>
+  <p>{{ form.body.label }}: {{ form.body(cols="55", rows="20") }} </p>
+  <p>{{ form.id }} </p>
     <p><input type="submit" name="submit" value="Submit" /></p>
 </form>
 {% endblock %}
