@@ -72,3 +72,5 @@ class User(Base):
             session = DBSession
         return session.query(cls).filter(cls.username == username)
 
+
+
