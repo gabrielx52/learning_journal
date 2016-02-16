@@ -1,7 +1,7 @@
-from pyramid.httpexceptions import HTTPFound
+from pyramid.httpexceptions import HTTPFound, HTTPNotFound
 from .forms import EntryCreateForm
 from pyramid.view import view_config
-from pyramid.httpexceptions import HTTPNotFound
+
 
 
 
@@ -38,9 +38,14 @@ def create(request):
     return {'form': form, 'action': request.matchdict.get('action')}
 
 
-@view_config(route_name='action', match_param='action=edit', renderer='string')
+@view_config(route_name='action', match_param='action=edit', renderer='templates/edit.jinja2')
 def update(request):
-    return 'edit page'
-
-
-
+    this_id = int(request.params.get('id', -1))
+    entry = Entry.by_id(this_id)
+    if not entry:
+        return HTTPNotFound()
+    form = EntryCreateForm(request.POST, entry)
+    if request.method == 'POST' and form.validate():
+        form.populate_obj(entry)
+        return HTTPFound(location=request.route_url('detail', id=entry.id))
+    return {'form': form, 'action': request.matchdict.get('action')}
