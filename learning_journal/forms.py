@@ -11,3 +11,5 @@ class EntryCreateForm(Form):
         'Entry body',
         [validators.Length(min=1)],
         filters=[strip_filter])
+
+

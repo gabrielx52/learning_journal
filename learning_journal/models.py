@@ -57,5 +57,20 @@ class Entry(Base):
             session = DBSession
         return session.query(cls).get(id)
 
-#def __repr__(self):
-#    return '{}{}{}{}'.format(n.id, n.title,...,...)
+
+class User(Base):
+    __tablename__ = 'users'
+    id = Column(Integer, primary_key=True)
+    username = Column(Unicode(255), unique=True, nullable=False, index=True)
+    password = Column(Unicode, nullable=False)
+
+    @classmethod
+    def by_username(cls, username, session=None):
+        """return user by username
+        """
+        if session is None:
+            session = DBSession
+        return session.query(cls).filter(cls.username == username)
+
+
+

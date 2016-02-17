@@ -1,15 +1,22 @@
+h1{
+    font-weight:200 !important;
+    font-family: "Times New Roman", Times, serif !important}
+h2{
+    font-weight: 100 !important;
+    font-family: "Times New Roman", Times, serif !important}
 body{
     color:#111;
     padding:0;
     margin:0;
-    background-color: #eee;}
+    background-color: #fff;}
 header{
+    height: 55px;
     margin:0;
-    padding:0 0.75em;
+    padding:10 0.5em;
     width:100%;
-    background: #222;
-    color: #ccc;
-    border-bottom: 3px solid #fff;}
+    background: #d9d9d9;
+    color: black;
+    border-bottom: 1px solid black;}
 header:after{
     content:"";
     display:table;
@@ -23,7 +30,7 @@ footer a:hover {
 }
 header a:visited,
 footer a:visited {
-    color:#eee;
+    color: black;
 }
 header aside{
     float:right;
@@ -66,8 +73,35 @@ main aside .field textarea{
 main aside .control_row input{
     margin-left:16%}
 footer{
-    padding: 1em 0.75em;
-    background: #222;
-    color: #ccc;
-    border-top: 3px solid #fff;
+    position: absolute;
+    bottom: 0;
+    padding: .2em 0.75em;
+    background: #fff;
+    color: black;
+    width: 100%;
+    border-top: 1px solid black;
     border-bottom: 3px solid #fff;}
+strong {
+    color: red;
+    text-decoration: underline;
+    font: 16px "Courier New", Courier, monospace;}
+p {
+    font: 16px "Courier New", Courier, monospace;}
+input[type=submit] {
+    font: 14px "Courier New", Courier, monospace;}
+input{
+    font: 16px "Courier New", Courier, monospace;}
+textarea{
+    font: 16px "Courier New", Courier, monospace;}
+a:link {
+    color: black;}
+a:visited {
+    color: red;}
+a:hover {
+    color: gold;}
+ul {
+    list-style-type: circle;}
+nav {
+    font-weight: 500 ;
+    font: 20px "Courier New", Courier, monospace;}
+
