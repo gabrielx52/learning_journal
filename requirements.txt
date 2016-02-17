@@ -5,7 +5,6 @@ gnureadline==6.3.3
 ipython==4.1.0
 ipython-genutils==0.1.0
 Jinja2==2.8
--e git+https://github.com/gabrielx52/learning_journal.git@6bf4fecf7b46516d1a799bc55cfa1981ab6c0b76#egg=learning_journal
 Mako==1.0.3
 MarkupSafe==0.23
 passlib==1.6.5
