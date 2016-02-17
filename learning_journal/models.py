@@ -1,3 +1,5 @@
+from passlib.context import CryptContext
+
 import datetime
 from sqlalchemy import (
     Column,
@@ -21,7 +23,7 @@ from zope.sqlalchemy import ZopeTransactionExtension
 
 DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
 Base = declarative_base()
-
+password_context = CryptContext(schemes=['pbkdf2_sha512'])
 
 class MyModel(Base):
     __tablename__ = 'models'
@@ -61,16 +63,17 @@ class Entry(Base):
 class User(Base):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True)
-    username = Column(Unicode(255), unique=True, nullable=False, index=True)
+    name = Column(Unicode(255), unique=True, nullable=False, index=True)
     password = Column(Unicode, nullable=False)
 
     @classmethod
-    def by_username(cls, username, session=None):
+    def by_name(cls, name, session=None):
         """return user by username
         """
         if session is None:
             session = DBSession
-        return session.query(cls).filter(cls.username == username)
+        # return session.query(cls).get(username)
+        return session.query(cls).filter(cls.name == name).first()
 
-
-
+    def verify_password(self, password):
+        return password_context.verify(password, self.password)
